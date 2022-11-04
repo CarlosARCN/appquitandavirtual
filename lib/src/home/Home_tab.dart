@@ -37,6 +37,15 @@ class HomeTab extends StatelessWidget {
             ],
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.shopping_cart,
+              color: CustomColors.customSwatchColor,
+            ),
+          )
+        ],
       ),
 
       //pesquisa
