@@ -164,7 +164,7 @@ class SingInScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (c) {
-                            return const SingUpScreen();
+                            return SingUpScreen();
                           }));
                         },
                         child: const Text('Criar conta'),

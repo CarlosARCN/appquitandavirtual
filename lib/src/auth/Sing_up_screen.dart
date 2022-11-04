@@ -3,9 +3,24 @@
 import 'package:appquitanda/src/auth/components/customs_text_fields.dart';
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SingUpScreen extends StatelessWidget {
-  const SingUpScreen({super.key});
+  SingUpScreen({super.key});
+  final phonefomartter = MaskTextInputFormatter(
+    mask: '(##) #####-####',
+    filter: {
+      '#': RegExp(r'[0-9]'),
+    },
+  );
+  final cpfformartter = MaskTextInputFormatter(
+    mask: '###.###.###-##',
+    filter: {
+      '#': RegExp(r'[0-9]'),
+    },
+  );
+
+  static get r => null;
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +78,16 @@ class SingUpScreen extends StatelessWidget {
                           label: 'Nome',
                         ),
                         //celular
-                        const CustomTextFormField(
+                        CustomTextFormField(
                           icon: Icons.phone,
                           label: 'Celular',
+                          inputFormatters: [phonefomartter],
                         ),
                         //cpf
-                        const CustomTextFormField(
+                        CustomTextFormField(
                           icon: Icons.document_scanner,
                           label: 'CPF',
+                          inputFormatters: [cpfformartter],
                         ),
                         SizedBox(
                           height: 50,
