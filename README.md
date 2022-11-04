@@ -1,16 +1,28 @@
-# appquitanda
+#  NCStor
 
-A new Flutter project.
+Beautiful grandious and powerfull...
+       ?!?
+## /{ > _ < }\
 
-## Getting Started
+This project is a big time investment for meu fututo proximo.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+A few resources usados to get meu knowledge if this is errado eu no care too muito:
+ 
+##De onde copiei os codigos com ctrl+c e ctrl+v 'command'.
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For help  me getting mais dinheiro give me a pix ###.###.###-##.
+
+vendos aulas de como programar apps moveis usando a linguagem de programação "html".
+
+
+
+
+(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )
+(👍≖‿‿≖)👍 👍(≖‿‿≖👍)
+( ͡❛ ෴ ͡❛)
+O̲ppa̲ (っ-̶●̃益●̶̃)っ ,︵‿ S̲t̲yl̲e̲
+( ◑‿◑)ɔ┏🍟--🍔┑٩(^◡^ )
+💪 (•︡益︠•) 👊
