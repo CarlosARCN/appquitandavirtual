@@ -76,8 +76,10 @@ class SingUpScreen extends StatelessWidget {
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18))),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
                             onPressed: () {},
                             child: const Text(
                               'Cadastrar usuário',
@@ -90,10 +92,19 @@ class SingUpScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                color: Colors.red,
-                height: 50,
-                width: 50,
+              Positioned(
+                left: 10,
+                top: 10,
+                child: SafeArea(
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      )),
+                ),
               )
             ],
           ),
