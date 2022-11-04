@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../config/custom_colors.dart';
+
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
 
@@ -10,7 +12,31 @@ class HomeTab extends StatelessWidget {
     return Scaffold(
       //appbar
       appBar: AppBar(
-        title: const Text.rich(TextSpan(children: [])),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text.rich(
+          TextSpan(
+            style: const TextStyle(
+              fontSize: 40,
+            ),
+            children: [
+              const TextSpan(
+                text: 'Green',
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: 'grocer',
+                style: TextStyle(
+                  color: CustomColors.customContrastColor,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
 
       //pesquisa
