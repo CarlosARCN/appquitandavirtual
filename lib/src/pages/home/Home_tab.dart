@@ -3,7 +3,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
-import '../config/custom_colors.dart';
+import '../../config/custom_colors.dart';
 import 'components/category_tile.dart';
 
 class HomeTab extends StatefulWidget {
