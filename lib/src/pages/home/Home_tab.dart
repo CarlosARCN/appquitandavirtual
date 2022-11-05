@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, library_prefixes
 
+import 'package:appquitanda/src/pages/home/components/item_tile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:appquitanda/src/config/app_data.dart' as appData1;
@@ -149,8 +150,9 @@ class _HomeTabState extends State<HomeTab> {
               ),
               itemCount: appData1.items.length,
               itemBuilder: (_, index) {
-                return Container(
-                  color: Colors.red,
+                return ItemTile(
+                  item: appData1.items[index],
+                  //item: appData1.items
                 );
               },
             ),
