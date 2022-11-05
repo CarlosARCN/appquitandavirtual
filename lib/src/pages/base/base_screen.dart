@@ -1,4 +1,4 @@
-import 'package:appquitanda/src/home/Home_tab.dart';
+import 'package:appquitanda/src/pages/home/Home_tab.dart';
 import 'package:flutter/material.dart';
 
 class BaseScreen extends StatefulWidget {
