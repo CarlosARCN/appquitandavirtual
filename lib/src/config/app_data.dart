@@ -2,7 +2,8 @@ import 'package:appquitanda/src/models/Iten_model.dart';
 
 //itens menu
 ItemModel apple = ItemModel(
-  description: 'a melhor apple',
+  description:
+      'a melhor appappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleapplejdgfoashdglasjhlkgscasidcosahvdlcjhgsdjcvLJHRLJSHVCLHbascarloasdcarlosdcarloaslkanldfnaiovdncosvdasglinda;ofjvadlskdfjslkriowisnrovsnlfg;kdfkodbgodknfldsvk sle le le el el el el ele le le l el le le le el el el el el el el le le e ninja nina njiandjs aniknfiajndfianij nijnaijnfiajnfiajndfijnqnaijsnaijesporte  oaksfnajdfskjdnksjnogdsnocarro onsfoanfonaofndinheiro le',
   imgUrl: 'assets/fruits/apple.png',
   itemName: 'Maça',
   price: 5.5,
