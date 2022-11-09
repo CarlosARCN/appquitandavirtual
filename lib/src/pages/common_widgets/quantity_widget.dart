@@ -36,12 +36,17 @@ class Quantitywidget extends StatelessWidget {
           _quantitybutton(
             color: Colors.grey,
             icon: Icons.remove,
-            onpresed: () {},
+            onpresed: () {
+              if (value1 == 1) return;
+              int resultcount = value1 - 1;
+
+              result(resultcount);
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text(
-              '$value1 $suffixtext2',
+              '$value1$suffixtext2',
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -49,8 +54,8 @@ class Quantitywidget extends StatelessWidget {
             ),
           ),
           _quantitybutton(
-            color: CustomColors.customSwatchColor,
             icon: Icons.add,
+            color: CustomColors.customSwatchColor,
             onpresed: () {
               int resultcount = value1 + 1;
 

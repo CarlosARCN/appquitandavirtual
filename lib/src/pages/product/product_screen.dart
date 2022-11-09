@@ -4,14 +4,23 @@ import 'package:appquitanda/src/pages/common_widgets/quantity_widget.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 
-class ProductScreen extends StatelessWidget {
-  ProductScreen({
+class ProductScreen extends StatefulWidget {
+  const ProductScreen({
     super.key,
     required this.item,
   });
 
   final ItemModel item;
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
   final utilServices utilservices = utilServices();
+
+  int cartitemquantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +33,8 @@ class ProductScreen extends StatelessWidget {
               //hero poblematico
 
               child: Hero(
-                tag: item.imgUrl,
-                child: Image.asset(item.imgUrl),
+                tag: widget.item.imgUrl,
+                child: Image.asset(widget.item.imgUrl),
               ),
             ),
             Expanded(
@@ -51,7 +60,7 @@ class ProductScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            item.itemName,
+                            widget.item.itemName,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -59,16 +68,20 @@ class ProductScreen extends StatelessWidget {
                           ),
                         ),
                         Quantitywidget(
-                          suffixtext2: item.unit,
-                          value1: 1,
-                          result: (int quantity) {},
+                          suffixtext2: widget.item.unit,
+                          value1: cartitemquantity,
+                          result: (quantity) {
+                            setState(() {
+                              cartitemquantity = quantity;
+                            });
+                          },
                         )
                       ],
                     ),
 
                     //preco
                     Text(
-                      utilservices.priceToCurrency(item.price),
+                      utilservices.priceToCurrency(widget.item.price),
                       style: TextStyle(
                         fontSize: 23,
                         color: CustomColors.customSwatchColor,
@@ -80,7 +93,7 @@ class ProductScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SingleChildScrollView(
                           child: Text(
-                            item.description,
+                            widget.item.description,
                             style: const TextStyle(
                               height: 1.5,
                             ),
