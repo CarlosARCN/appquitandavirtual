@@ -12,6 +12,7 @@ class Quantitywidget extends StatelessWidget {
     super.key,
     required this.value1,
     required this.suffixtext2,
+    required this.result,
     //required this.result,
   });
 
@@ -51,9 +52,9 @@ class Quantitywidget extends StatelessWidget {
             color: CustomColors.customSwatchColor,
             icon: Icons.add,
             onpresed: () {
-              // int resultcount = value1 + 1;
+              int resultcount = value1 + 1;
 
-              // result(resultcount);
+              result(resultcount);
             },
           )
         ],

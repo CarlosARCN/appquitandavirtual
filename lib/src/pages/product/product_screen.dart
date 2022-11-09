@@ -54,6 +54,7 @@ class ProductScreen extends StatelessWidget {
                         Quantitywidget(
                           suffixtext2: item.unit,
                           value1: 1,
+                          result: (int quantity) {},
                         )
                       ],
                     ),
