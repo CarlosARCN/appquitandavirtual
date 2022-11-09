@@ -21,7 +21,12 @@ class ProductScreen extends StatelessWidget {
           //conteudo
           Column(children: [
             Expanded(
-              child: Hero(tag: item.imgUrl, child: Image.asset(item.imgUrl)),
+              //hero poblematico
+
+              child: Hero(
+                tag: item.imgUrl,
+                child: Image.asset(item.imgUrl),
+              ),
             ),
             Expanded(
               child: Container(
@@ -33,7 +38,9 @@ class ProductScreen extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.grey.shade600, offset: const Offset(0, 2))
+                      color: Colors.grey.shade600,
+                      offset: const Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Column(
