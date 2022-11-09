@@ -1,4 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:appquitanda/src/models/Iten_model.dart';
+import 'package:appquitanda/src/models/cart_item_model.dart';
 
 //itens menu
 ItemModel apple = ItemModel(
@@ -44,4 +47,10 @@ List<String> categories = [
   'Verduras',
   'Temperos',
   'Cereais',
+];
+
+List<CartItemModel> CartItems = [
+  CartItemModel(item: apple, quantity: 2),
+  CartItemModel(item: grape, quantity: 1),
+  CartItemModel(item: banana, quantity: 9),
 ];

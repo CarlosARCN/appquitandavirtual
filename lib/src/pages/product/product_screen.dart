@@ -130,11 +130,13 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             )
           ]),
+          //back arrow
           Positioned(
             left: 10,
             top: 10,
             child: SafeArea(
               child: IconButton(
+                  color: Colors.green.shade600,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
