@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,13 +8,18 @@ class CustomTextFormField extends StatefulWidget {
   final String label;
   final bool isSecret;
   final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
+  final bool readoline;
 
-  const CustomTextFormField(
-      {super.key,
-      required this.icon,
-      required this.label,
-      this.isSecret = false,
-      this.inputFormatters});
+  const CustomTextFormField({
+    super.key,
+    required this.icon,
+    required this.label,
+    this.isSecret = false,
+    this.inputFormatters,
+    this.initialValue,
+    this.readoline = false,
+  });
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -35,6 +42,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        readOnly: widget.readoline,
+        initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         obscureText: ispass,
         decoration: InputDecoration(

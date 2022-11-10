@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:appquitanda/src/models/Iten_model.dart';
+import 'package:appquitanda/src/models/User_Model.dart';
 import 'package:appquitanda/src/models/cart_item_model.dart';
 
 //itens menu
@@ -54,3 +55,10 @@ List<CartItemModel> CartItems = [
   CartItemModel(item: grape, quantity: 1),
   CartItemModel(item: banana, quantity: 9),
 ];
+
+UserModel user = UserModel(
+    CPF: '999.999.999-00',
+    Password: 'Sen888888ha',
+    phonenumber: '+12 345 567890123',
+    email: 'emailcomum@indiferente.igual',
+    name: 'nulidade');

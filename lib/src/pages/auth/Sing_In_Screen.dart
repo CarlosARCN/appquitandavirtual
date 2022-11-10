@@ -3,7 +3,7 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appquitanda/src/pages/auth/Sing_up_screen.dart';
-import 'package:appquitanda/src/pages/auth/components/customs_text_fields.dart';
+import 'package:appquitanda/src/pages/common_widgets/customs_text_fields.dart';
 import 'package:appquitanda/src/pages/base/base_screen.dart';
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:flutter/material.dart';

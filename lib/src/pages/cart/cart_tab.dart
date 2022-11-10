@@ -93,8 +93,8 @@ class _CartTabState extends State<CartTab> {
                       ),
                     ),
                     onPressed: () async {
+                      // ignore: unused_local_variable
                       bool? result = await showOrderConfirmation();
-                      print(result);
                     },
                     child: const Text(
                       'Concluir pedido',
