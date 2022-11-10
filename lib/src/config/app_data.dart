@@ -3,6 +3,7 @@
 import 'package:appquitanda/src/models/Iten_model.dart';
 import 'package:appquitanda/src/models/User_Model.dart';
 import 'package:appquitanda/src/models/cart_item_model.dart';
+import 'package:appquitanda/src/models/order_model.dart';
 
 //itens menu
 ItemModel apple = ItemModel(
@@ -62,3 +63,14 @@ UserModel user = UserModel(
     phonenumber: '+12 345 567890123',
     email: 'emailcomum@indiferente.igual',
     name: 'nulidade');
+
+List<OrderModel> orders = [
+  OrderModel(
+      copyAndPaste: 'aksudfvyisf',
+      createdDatetime: DateTime.parse('2021-06-08 10:00:10.458'),
+      items: [CartItemModel(item: apple, quantity: 2)],
+      overdueDatetime: DateTime.parse('2021-06-08 11:00:10.458'),
+      status: 'pending_payment',
+      total: 11.00,
+      id: 'pedido01')
+];

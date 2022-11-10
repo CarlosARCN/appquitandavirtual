@@ -1,5 +1,6 @@
 import 'package:appquitanda/src/pages/cart/cart_tab.dart';
 import 'package:appquitanda/src/pages/home/Home_tab.dart';
+import 'package:appquitanda/src/pages/orders/orders_tab.dart';
 import 'package:appquitanda/src/pages/profile/Profile_Tab.dart';
 import 'package:flutter/material.dart';
 
@@ -20,17 +21,15 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
+        children: const [
           //tab1
-          const HomeTab(),
+          HomeTab(),
           //page2
-          const CartTab(),
+          CartTab(),
           //page3
-          Container(
-            color: Colors.green,
-          ),
+          OrdersTab(),
           //page4
-          const ProfileTab(),
+          ProfileTab(),
         ],
       ),
       //menu de baixo
