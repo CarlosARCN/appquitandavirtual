@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
