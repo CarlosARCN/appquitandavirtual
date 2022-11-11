@@ -1,4 +1,7 @@
-import 'package:appquitanda/src/home/Home_tab.dart';
+import 'package:appquitanda/src/pages/cart/cart_tab.dart';
+import 'package:appquitanda/src/pages/home/Home_tab.dart';
+import 'package:appquitanda/src/pages/orders/orders_tab.dart';
+import 'package:appquitanda/src/pages/profile/Profile_Tab.dart';
 import 'package:flutter/material.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -18,21 +21,15 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
+        children: const [
           //tab1
-          const HomeTab(),
+          HomeTab(),
           //page2
-          Container(
-            color: Colors.blue,
-          ),
+          CartTab(),
           //page3
-          Container(
-            color: Colors.green,
-          ),
+          OrdersTab(),
           //page4
-          Container(
-            color: Colors.yellow,
-          ),
+          ProfileTab(),
         ],
       ),
       //menu de baixo

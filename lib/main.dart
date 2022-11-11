@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'src/auth/Sing_In_Screen.dart';
+import 'src/pages/auth/Sing_In_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.green,
-          scaffoldBackgroundColor: Colors.white.withAlpha(190)),
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Colors.white.withAlpha(190),
+      ),
       debugShowCheckedModeBanner: false,
       home: const SingInScreen(),
     );

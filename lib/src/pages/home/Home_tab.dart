@@ -1,9 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, library_prefixes
 
+import 'package:appquitanda/src/pages/home/components/item_tile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-
-import '../config/custom_colors.dart';
+import 'package:appquitanda/src/config/app_data.dart' as appData1;
+import '../../config/custom_colors.dart';
 import 'components/category_tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -123,20 +124,39 @@ class _HomeTabState extends State<HomeTab> {
                 return CategoryTile(
                   onPressed: () {
                     setState(() {
-                      selectedCategory = categories[index];
+                      selectedCategory = appData1.categories[index];
                     });
                   },
-                  category: categories[index],
-                  isSelected: categories[index] == selectedCategory,
+                  category: appData1.categories[index],
+                  isSelected: appData1.categories[index] == selectedCategory,
                 );
               },
               separatorBuilder: (_, index) => const SizedBox(
                 width: 10,
               ),
-              itemCount: categories.length,
+              itemCount: appData1.categories.length,
             ),
           ),
           //grid
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 9 / 11.5,
+              ),
+              itemCount: appData1.items.length,
+              itemBuilder: (_, index) {
+                return ItemTile(
+                  item: appData1.items[index],
+                  //item: appData1.items
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
