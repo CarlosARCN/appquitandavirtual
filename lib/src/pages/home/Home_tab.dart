@@ -1,5 +1,9 @@
 // ignore_for_file: file_names, library_prefixes
 
+import 'dart:ffi';
+
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
+import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:appquitanda/src/pages/home/components/item_tile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,14 @@ class _HomeTabState extends State<HomeTab> {
   ];
 
   String selectedCategory = 'Frutas';
+
+  GlobalKey<CartIconKey> globalKeyCartItem = GlobalKey<CartIconKey>();
+
+  late Function(GlobalKey) runAddToCardAnimation;
+
+  Void itemSelectedCartAnimations(GlobalKey gkImage) {
+    return runAddToCardAnimation(gkImage);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +84,12 @@ class _HomeTabState extends State<HomeTab> {
                     fontSize: 12,
                   ),
                 ),
-                child: Icon(
-                  Icons.shopping_cart,
-                  color: CustomColors.customSwatchColor,
+                child: AddToCartIcon(
+                  key: globalKeyCartItem,
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: CustomColors.customSwatchColor,
+                  ),
                 ),
               ),
             ),
@@ -82,82 +97,91 @@ class _HomeTabState extends State<HomeTab> {
         ],
       ),
 
-      body: Column(
-        children: [
-          //pesquisa
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
-            child: TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                isDense: true,
-                hintText: 'Pesquisa',
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade400,
-                  fontSize: 14,
+      body: AddToCartAnimation(
+        gkCart: globalKeyCartItem,
+        previewDuration: const Duration(milliseconds: 50),
+        previewCurve: Curves.ease,
+        receiveCreateAddToCardAnimationMethod: (addToCArdAnimationMethod) {
+          runAddToCardAnimation = addToCArdAnimationMethod;
+        },
+        child: Column(
+          children: [
+            //pesquisa
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  isDense: true,
+                  hintText: 'Pesquisa',
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: CustomColors.customContrastColor,
+                    size: 21,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(60),
+                      borderSide: const BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      )),
                 ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: CustomColors.customContrastColor,
-                  size: 21,
+              ),
+            ),
+            //categorias
+            Container(
+              padding: const EdgeInsets.only(left: 25),
+              height: 40,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (_, index) {
+                  return CategoryTile(
+                    onPressed: () {
+                      setState(() {
+                        selectedCategory = appData1.categories[index];
+                      });
+                    },
+                    category: appData1.categories[index],
+                    isSelected: appData1.categories[index] == selectedCategory,
+                  );
+                },
+                separatorBuilder: (_, index) => const SizedBox(
+                  width: 10,
                 ),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(60),
-                    borderSide: const BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    )),
+                itemCount: appData1.categories.length,
               ),
             ),
-          ),
-          //categorias
-          Container(
-            padding: const EdgeInsets.only(left: 25),
-            height: 40,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return CategoryTile(
-                  onPressed: () {
-                    setState(() {
-                      selectedCategory = appData1.categories[index];
-                    });
-                  },
-                  category: appData1.categories[index],
-                  isSelected: appData1.categories[index] == selectedCategory,
-                );
-              },
-              separatorBuilder: (_, index) => const SizedBox(
-                width: 10,
+            //grid
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 9 / 11.5,
+                ),
+                itemCount: appData1.items.length,
+                itemBuilder: (_, index) {
+                  return ItemTile(
+                    item: appData1.items[index],
+                    cartAnimationMethod: itemSelectedCartAnimations,
+                    //item: appData1.items
+                  );
+                },
               ),
-              itemCount: appData1.categories.length,
             ),
-          ),
-          //grid
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 9 / 11.5,
-              ),
-              itemCount: appData1.items.length,
-              itemBuilder: (_, index) {
-                return ItemTile(
-                  item: appData1.items[index],
-                  //item: appData1.items
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

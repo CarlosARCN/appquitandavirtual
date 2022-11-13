@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 
 class ItemTile extends StatelessWidget {
   final ItemModel item;
-
+  final Function(GlobalKey) cartAnimationMethod;
+  final GlobalKey imageGk = GlobalKey();
   ItemTile({
     super.key,
     required this.item,
+    required this.cartAnimationMethod,
   });
   utilServices utilservices = utilServices();
 
@@ -47,7 +49,10 @@ class ItemTile extends StatelessWidget {
                   Expanded(
                     child: Hero(
                       tag: item.imgUrl,
-                      child: Image.asset(item.imgUrl),
+                      child: Image.asset(
+                        item.imgUrl,
+                        key: imageGk,
+                      ),
                     ),
                   ),
                   //nome
@@ -88,7 +93,9 @@ class ItemTile extends StatelessWidget {
             top: 4,
             right: 4,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                cartAnimationMethod(imageGk);
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: CustomColors.customSwatchColor,
