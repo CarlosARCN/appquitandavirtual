@@ -22,6 +22,11 @@ class _CartTabState extends State<CartTab> {
   void removeitemfromcart(CartItemModel cartitem) {
     setState(() {
       appData.CartItems.remove(cartitem);
+
+      showToast(
+        menssage: 'o item ${cartitem.item.itemName} foi removido do carrinho!',
+        isError: true,
+      );
     });
   }
 
@@ -47,6 +52,7 @@ class _CartTabState extends State<CartTab> {
       ),
       body: Column(
         children: [
+          //list
           Expanded(
               child: ListView.builder(
             itemCount: appData.CartItems.length,
@@ -102,14 +108,21 @@ class _CartTabState extends State<CartTab> {
                     onPressed: () async {
                       // ignore: unused_local_variable
                       bool? result = await showOrderConfirmation();
-                      if(result ?? false ){showDialog(
-                    context: context,
-                    builder: (_) {
-                      return PaymentDialog(
-                        order: appData.orders.first,
-                      );
-                    },
-                  );}
+                      if (result ?? false) {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PaymentDialog(
+                              order: appData.orders.first,
+                            );
+                          },
+                        );
+                      } else {
+                        showToast(
+                          menssage: 'pedido nao confirmado!',
+                          isError: true,
+                        );
+                      }
                     },
                     child: const Text(
                       'Concluir pedido',

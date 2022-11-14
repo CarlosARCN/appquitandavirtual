@@ -1,10 +1,11 @@
-// ignore_for_file: file_names, library_prefixes
+// ignore_for_file: file_names, library_prefixes, non_constant_identifier_names
 
 import 'dart:ffi';
 
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:appquitanda/src/pages/home/components/item_tile.dart';
+import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:appquitanda/src/config/app_data.dart' as appData1;
@@ -37,6 +38,7 @@ class _HomeTabState extends State<HomeTab> {
     return runAddToCardAnimation(gkImage);
   }
 
+  utilServices utilservices = utilServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
