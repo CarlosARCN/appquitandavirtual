@@ -3,6 +3,7 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appquitanda/src/pages/auth/Sing_up_screen.dart';
+import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
 import 'package:appquitanda/src/pages/common_widgets/customs_text_fields.dart';
 import 'package:appquitanda/src/pages/base/base_screen.dart';
 import 'package:appquitanda/src/config/custom_colors.dart';
@@ -28,26 +29,9 @@ class SingInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //nome app
-                    Text.rich(
-                      TextSpan(
-                        style: const TextStyle(
-                          fontSize: 40,
-                        ),
-                        children: [
-                          const TextSpan(
-                            text: 'Green',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(
-                            text: 'grocer',
-                            style: TextStyle(
-                              color: CustomColors.customContrastColor,
-                            ),
-                          ),
-                        ],
-                      ),
+                    const AppNameWidget(
+                      greenTittleColor: Colors.white,
+                      textSize: 40,
                     ),
 
                     //categorias

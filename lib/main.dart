@@ -1,3 +1,6 @@
+// ignore_for_file: unused_import
+
+import 'package:appquitanda/src/pages/Splash/splash_Screen.dart';
 import 'package:flutter/material.dart';
 
 import 'src/pages/auth/Sing_In_Screen.dart';
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
       debugShowCheckedModeBanner: false,
-      home: const SingInScreen(),
+      home: const SplashScreen(),
     );
   }
 }

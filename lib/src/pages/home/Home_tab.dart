@@ -4,6 +4,7 @@ import 'dart:ffi';
 
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
+import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
 import 'package:appquitanda/src/pages/home/components/item_tile.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:badges/badges.dart';
@@ -47,28 +48,7 @@ class _HomeTabState extends State<HomeTab> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text.rich(
-          TextSpan(
-            style: const TextStyle(
-              fontSize: 40,
-            ),
-            children: [
-              const TextSpan(
-                text: 'Green',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: 'grocer',
-                style: TextStyle(
-                  color: CustomColors.customContrastColor,
-                ),
-              ),
-            ],
-          ),
-        ),
+        title: const AppNameWidget(),
         actions: [
           Padding(
             padding: const EdgeInsets.only(
