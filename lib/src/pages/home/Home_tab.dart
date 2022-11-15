@@ -130,27 +130,42 @@ class _HomeTabState extends State<HomeTab> {
             ),
             //categorias
             Container(
-              padding: const EdgeInsets.only(left: 25),
-              height: 40,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (_, index) {
-                  return CategoryTile(
-                    onPressed: () {
-                      setState(() {
-                        selectedCategory = appData1.categories[index];
-                      });
-                    },
-                    category: appData1.categories[index],
-                    isSelected: appData1.categories[index] == selectedCategory,
-                  );
-                },
-                separatorBuilder: (_, index) => const SizedBox(
-                  width: 10,
-                ),
-                itemCount: appData1.categories.length,
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 25),
+                height: 40,
+                child: !isLoading
+                    ? ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) {
+                          return CategoryTile(
+                            onPressed: () {
+                              setState(() {
+                                selectedCategory = appData1.categories[index];
+                              });
+                            },
+                            category: appData1.categories[index],
+                            isSelected:
+                                appData1.categories[index] == selectedCategory,
+                          );
+                        },
+                        separatorBuilder: (_, index) => const SizedBox(
+                          width: 10,
+                        ),
+                        itemCount: appData1.categories.length,
+                      )
+                    : ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          10,
+                          (index) => Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(right: 12),
+                            child: CustomShimmer(
+                              height: 20,
+                              width: 80,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ))),
             //grid
             Expanded(
               child: !isLoading
@@ -187,7 +202,8 @@ class _HomeTabState extends State<HomeTab> {
                           width: double.infinity,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                      )),
+                      ),
+                    ),
             ),
           ],
         ),
