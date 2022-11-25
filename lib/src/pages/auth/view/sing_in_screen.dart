@@ -1,6 +1,3 @@
-// ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appquitanda/src/pages/auth/controller/auth_controller.dart';
 import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
@@ -88,7 +85,7 @@ class SingInScreen extends StatelessWidget {
                           if (email == null || email.isEmpty) {
                             return 'Digite seu email';
                           }
-                          if (!email.isEmail) return "Digite unm email valido";
+                          if (!email.isEmail) return "Digite um email valido";
                           return null;
                         },
                       ),
@@ -132,7 +129,7 @@ class SingInScreen extends StatelessWidget {
                                         authcontroller.singIn(
                                             email: email, password: password);
                                       } else {
-                                        (print('invalid field'));
+                                        // (print('invalid field'));
                                       }
                                     },
                               child: authcontroller.isLoading.value

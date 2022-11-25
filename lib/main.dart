@@ -6,7 +6,7 @@ import 'package:appquitanda/src/pages_Routes/app_Pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'src/pages/auth/Sing_In_Screen.dart';
+import 'src/pages/auth/view/sing_in_screen.dart';
 
 void main() {
   Get.put(AuthController());

@@ -21,7 +21,7 @@ class _CartTabState extends State<CartTab> {
 
   void removeitemfromcart(CartItemModel cartitem) {
     setState(() {
-      appData.CartItems.remove(cartitem);
+      appData.cartItems.remove(cartitem);
 
       showToast(
         menssage: 'o item ${cartitem.item.itemName} foi removido do carrinho!',
@@ -33,7 +33,7 @@ class _CartTabState extends State<CartTab> {
   double cartTotalPrice() {
     double total = 0;
 
-    for (var item in appData.CartItems) {
+    for (var item in appData.cartItems) {
       total += item.Totalprice();
     }
     return total;
@@ -55,10 +55,10 @@ class _CartTabState extends State<CartTab> {
           //list
           Expanded(
               child: ListView.builder(
-            itemCount: appData.CartItems.length,
+            itemCount: appData.cartItems.length,
             itemBuilder: (_, index) {
               return CartTile(
-                  cartitem: appData.CartItems[index],
+                  cartitem: appData.cartItems[index],
                   remove: removeitemfromcart);
             },
           )),

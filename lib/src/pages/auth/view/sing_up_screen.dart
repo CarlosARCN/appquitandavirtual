@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:appquitanda/src/pages/common_widgets/customs_text_fields.dart';
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:flutter/material.dart';
