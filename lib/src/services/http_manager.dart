@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 
 abstract class HttpMethods {
-  static const String post = '';
-  static const String get = '';
-  static const String put = '';
-  static const String patch = '';
-  static const String delete = '';
+  static const String post = 'POST';
+  static const String get = 'GET';
+  static const String put = 'PUT';
+  static const String patch = 'PATCH';
+  static const String delete = 'DELETE';
 }
 
 class HttpManager {
   Future<Map> restRequest({
     required String url,
-    required method,
+    required String method,
     Map? headers,
     Map? body,
   }) async {
-    //headers da requisicao
+    // Headers da requisição
     final defaultHeaders = headers?.cast<String, String>() ?? {}
       ..addAll({
         'content-type': 'application/json',
@@ -36,14 +36,13 @@ class HttpManager {
         data: body,
       );
 
-      //retorno do resultado do backend
+      // Retorno do resultado do backend
       return response.data;
     } on DioError catch (error) {
-      //retorno do erro do dio request
+      // Retorno do erro do dio request
       return error.response?.data ?? {};
     } catch (error) {
-      //retorno de map vazio para erro generalizado
-
+      // Retorno de map vazio para error generalizado
       return {};
     }
   }

@@ -1,5 +1,5 @@
 import 'package:appquitanda/src/models/Iten_model.dart';
-import 'package:appquitanda/src/models/user_model.dart';
+import 'package:appquitanda/src/models/user_modelo.dart';
 import 'package:appquitanda/src/models/cart_item_model.dart';
 import 'package:appquitanda/src/models/order_model.dart';
 
@@ -55,7 +55,7 @@ List<CartItemModel> cartItems = [
   CartItemModel(item: banana, quantity: 9),
 ];
 
-userModel user = userModel(
+UserModel user = UserModel(
     cpf: '999.999.999-00',
     password: 'Sen888888ha',
     phonenumber: '+12 345 567890123',
