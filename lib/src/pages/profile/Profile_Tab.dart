@@ -50,7 +50,7 @@ class _ProfileTabState extends State<ProfileTab> {
             readoline: true,
             icon: Icons.phone,
             label: 'Celular',
-            initialValue: appData.user.phonenumber,
+            initialValue: appData.user.phone,
           ),
 
           //cpf
@@ -59,7 +59,7 @@ class _ProfileTabState extends State<ProfileTab> {
             icon: Icons.file_copy,
             label: 'CPF',
             isSecret: true,
-            initialValue: appData.user.phonenumber,
+            initialValue: appData.user.phone,
           ),
 
           //bptaosenha

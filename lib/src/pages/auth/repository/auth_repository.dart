@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:appquitanda/src/constants/endpoints.dart';
 import 'package:appquitanda/src/models/user_modelo.dart';
 import 'package:appquitanda/src/services/http_manager.dart';
