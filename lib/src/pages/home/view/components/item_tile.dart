@@ -23,7 +23,7 @@ class ItemTile extends StatefulWidget {
 class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
 
-  utilServices utilservices = utilServices();
+  UtilServicess utilservices = UtilServicess();
 
   IconData tittleIcon = Icons.add_shopping_cart_outlined;
 

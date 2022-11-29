@@ -1,5 +1,5 @@
 import 'package:appquitanda/src/pages/cart/cart_tab.dart';
-import 'package:appquitanda/src/pages/home/Home_tab.dart';
+import 'package:appquitanda/src/pages/home/view/Home_tab.dart';
 import 'package:appquitanda/src/pages/orders/orders_tab.dart';
 import 'package:appquitanda/src/pages/profile/Profile_Tab.dart';
 import 'package:flutter/material.dart';

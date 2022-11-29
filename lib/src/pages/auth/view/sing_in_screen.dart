@@ -1,9 +1,12 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appquitanda/src/pages/auth/controller/auth_controller.dart';
+import 'package:appquitanda/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
 import 'package:appquitanda/src/pages/common_widgets/customs_text_fields.dart';
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:appquitanda/src/pages_Routes/app_Pages.dart';
+import 'package:appquitanda/src/services/utils_services.dart';
+import 'package:appquitanda/src/services/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +18,7 @@ class SingInScreen extends StatelessWidget {
   //controlador de camp text
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final UtilServicess utilservices = UtilServicess();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -81,13 +84,7 @@ class SingInScreen extends StatelessWidget {
                         controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu email';
-                          }
-                          if (!email.isEmail) return "Digite um email valido";
-                          return null;
-                        },
+                        validator: emailValidator,
                       ),
                       //senha
                       CustomTextFormField(
@@ -95,15 +92,7 @@ class SingInScreen extends StatelessWidget {
                         icon: Icons.lock,
                         label: 'Senha',
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite sua senha';
-                          }
-                          if (password.length < 7) {
-                            return "digite uma senha com pelo menos 7 digitos";
-                          }
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
                       //botaoentrar
                       SizedBox(
@@ -126,7 +115,7 @@ class SingInScreen extends StatelessWidget {
                                         String password =
                                             passwordController.text;
 
-                                        authcontroller.singIn(
+                                        authcontroller.signIn(
                                             email: email, password: password);
                                       } else {
                                         // (print('invalid field'));
@@ -144,7 +133,21 @@ class SingInScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: (null),
+                          onPressed: () async {
+                            final bool? result = await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ForgotPasswordDialog(
+                                  email: emailController.text,
+                                );
+                              },
+                            );
+                            if (result ?? false) {
+                              showToast(
+                                  menssage:
+                                      'enviamos um link ao seu email,autorize ele para hackearmos sua senha ');
+                            }
+                          },
                           child: Text(
                             "esqueceu a senha",
                             style: TextStyle(

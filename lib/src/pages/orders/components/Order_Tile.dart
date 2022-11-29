@@ -14,7 +14,7 @@ class OrderTile extends StatelessWidget {
     super.key,
     required this.order,
   });
-  final utilServices Utilsservices = utilServices();
+  final UtilServicess Utilsservices = UtilServicess();
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _OrderItemWidget extends StatelessWidget {
     required this.orderItem,
   }) : super(key: key);
 
-  final utilServices utilsServices;
+  final UtilServicess utilsServices;
   final CartItemModel orderItem;
 
   @override

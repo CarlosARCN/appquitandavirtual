@@ -6,12 +6,14 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
 import 'package:appquitanda/src/pages/common_widgets/custom_shimmer.dart';
-import 'package:appquitanda/src/pages/home/components/item_tile.dart';
+import 'package:appquitanda/src/pages/home/view/components/item_tile.dart';
+import 'package:appquitanda/src/pages/home/controller/home_controller.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:appquitanda/src/config/app_data.dart' as appData1;
-import '../../config/custom_colors.dart';
+import 'package:get/instance_manager.dart';
+import '../../../config/custom_colors.dart';
 import 'components/category_tile.dart';
 
 class HomeTab extends StatefulWidget {
@@ -41,6 +43,7 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
+    Get.find<HomeController>().printExample();
 
     Future.delayed(const Duration(seconds: 1), (() {
       setState(() {
@@ -49,7 +52,7 @@ class _HomeTabState extends State<HomeTab> {
     }));
   }
 
-  utilServices utilservices = utilServices();
+  UtilServicess utilservices = UtilServicess();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

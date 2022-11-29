@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'src/pages/auth/view/sing_in_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   Get.put(AuthController());
 
   runApp(const MyApp());

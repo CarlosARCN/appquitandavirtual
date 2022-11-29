@@ -8,7 +8,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 class PaymentDialog extends StatelessWidget {
   final OrderModel order;
   PaymentDialog({super.key, required this.order});
-  final utilServices Utilservices = utilServices();
+  final UtilServicess Utilservices = UtilServicess();
   @override
   Widget build(BuildContext context) {
     return Dialog(

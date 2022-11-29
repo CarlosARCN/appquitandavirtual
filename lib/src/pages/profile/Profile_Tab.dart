@@ -1,8 +1,10 @@
 // ignore_for_file: file_names, library_prefixes, prefer_typing_uninitialized_variables
 
+import 'package:appquitanda/src/pages/auth/controller/auth_controller.dart';
 import 'package:appquitanda/src/pages/common_widgets/customs_text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:appquitanda/src/config/app_data.dart' as appData;
+import 'package:get/get.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -12,6 +14,7 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,9 @@ class _ProfileTabState extends State<ProfileTab> {
         title: const Text('perfil do usuario'),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                authController.signOut();
+              },
               icon: const Icon(
                 Icons.logout,
               ))
