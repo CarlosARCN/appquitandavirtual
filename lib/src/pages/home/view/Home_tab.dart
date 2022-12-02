@@ -4,15 +4,15 @@ import 'dart:ffi';
 
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
+import 'package:appquitanda/src/pages/base/controller/navigation_controller.dart';
+import 'package:appquitanda/src/pages/cart/controller/cart_controller.dart';
 import 'package:appquitanda/src/pages/common_widgets/app_name_widget.dart';
 import 'package:appquitanda/src/pages/common_widgets/custom_shimmer.dart';
-import 'package:appquitanda/src/pages/home/view/components/item_tile.dart';
 import 'package:appquitanda/src/pages/home/controller/home_controller.dart';
-import 'package:appquitanda/src/services/utils_services.dart';
+import 'package:appquitanda/src/pages/home/view/components/item_tile.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:appquitanda/src/config/app_data.dart' as appData1;
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 import '../../../config/custom_colors.dart';
 import 'components/category_tile.dart';
 
@@ -24,13 +24,11 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> categories = [
-    'Frutas',
-  ];
-
-  String selectedCategory = 'Frutas';
-
+  List<String> categories = ['Frutas'];
   GlobalKey<CartIconKey> globalKeyCartItem = GlobalKey<CartIconKey>();
+
+  final searchController = TextEditingController();
+  final navigationController = Get.find<NavigationController>();
 
   late Function(GlobalKey) runAddToCardAnimation;
 
@@ -38,21 +36,6 @@ class _HomeTabState extends State<HomeTab> {
     return runAddToCardAnimation(gkImage);
   }
 
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    Get.find<HomeController>().printExample();
-
-    Future.delayed(const Duration(seconds: 1), (() {
-      setState(() {
-        isLoading = false;
-      });
-    }));
-  }
-
-  UtilServicess utilservices = UtilServicess();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,25 +51,31 @@ class _HomeTabState extends State<HomeTab> {
               top: 15,
               right: 15,
             ),
-            child: GestureDetector(
-              onTap: () {},
-              child: Badge(
-                badgeColor: CustomColors.customContrastColor,
-                badgeContent: const Text(
-                  '2',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return GestureDetector(
+                  onTap: () {
+                    navigationController.navigatePageView(NavigationTabs.cart);
+                  },
+                  child: Badge(
+                    badgeColor: CustomColors.customContrastColor,
+                    badgeContent: Text(
+                      controller.cartItems.length.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
+                    child: AddToCartIcon(
+                      key: globalKeyCartItem,
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: CustomColors.customSwatchColor,
+                      ),
+                    ),
                   ),
-                ),
-                child: AddToCartIcon(
-                  key: globalKeyCartItem,
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: CustomColors.customSwatchColor,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           )
         ],
@@ -102,112 +91,162 @@ class _HomeTabState extends State<HomeTab> {
         child: Column(
           children: [
             //pesquisa
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  isDense: true,
-                  hintText: 'Pesquisa',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                    fontSize: 14,
+            GetBuilder<HomeController>(
+              builder: (controller) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
                   ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: CustomColors.customContrastColor,
-                    size: 21,
+                  child: TextFormField(
+                    controller: searchController,
+                    onChanged: (value) {
+                      controller.searchTitle.value = value;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      suffixIcon: controller.searchTitle.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                searchController.clear();
+                                controller.searchTitle.value = '';
+                                FocusScope.of(context).unfocus();
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                color: CustomColors.customContrastColor,
+                                size: 21,
+                              ),
+                            )
+                          : null,
+                      fillColor: Colors.white,
+                      isDense: true,
+                      hintText: 'Pesquise aquii...',
+                      hintStyle: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 14,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: CustomColors.customContrastColor,
+                        size: 21,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(60),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          )),
+                    ),
                   ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(60),
-                      borderSide: const BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
-                      )),
-                ),
-              ),
+                );
+              },
             ),
             //categorias
-            Container(
-                padding: const EdgeInsets.only(left: 25),
-                height: 40,
-                child: !isLoading
-                    ? ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return CategoryTile(
-                            onPressed: () {
-                              setState(() {
-                                selectedCategory = appData1.categories[index];
-                              });
-                            },
-                            category: appData1.categories[index],
-                            isSelected:
-                                appData1.categories[index] == selectedCategory,
-                          );
-                        },
-                        separatorBuilder: (_, index) => const SizedBox(
-                          width: 10,
-                        ),
-                        itemCount: appData1.categories.length,
-                      )
-                    : ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                          10,
-                          (index) => Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(right: 12),
-                            child: CustomShimmer(
-                              height: 20,
-                              width: 80,
-                              borderRadius: BorderRadius.circular(20),
+            GetBuilder<HomeController>(
+              builder: (controller) {
+                return Container(
+                  padding: const EdgeInsets.only(left: 25),
+                  height: 40,
+                  child: !controller.isCategoryLoading
+                      ? ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (_, index) {
+                            return CategoryTile(
+                              onPressed: () {
+                                controller.selectCategory(
+                                    controller.allCategories[index]);
+                              },
+                              category: controller.allCategories[index].title,
+                              isSelected: controller.allCategories[index] ==
+                                  controller.currentCategory,
+                            );
+                          },
+                          separatorBuilder: (_, index) => const SizedBox(
+                            width: 10,
+                          ),
+                          itemCount: controller.allCategories.length,
+                        )
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(
+                            10,
+                            (index) => Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(right: 12),
+                              child: CustomShimmer(
+                                height: 20,
+                                width: 80,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
                           ),
-                        ))),
+                        ),
+                );
+              },
+            ),
             //grid
-            Expanded(
-              child: !isLoading
-                  ? GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+            GetBuilder<HomeController>(builder: (controller) {
+              return Expanded(
+                child: !controller.isProductLoading
+                    ? Visibility(
+                        visible: (controller.currentCategory?.items ?? [])
+                            .isNotEmpty,
+                        replacement: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search_off,
+                              size: 40,
+                              color: CustomColors.customSwatchColor,
+                            ),
+                            const Text('Nao ha item pra tu ve'),
+                          ],
+                        ),
+                        child: GridView.builder(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                          physics: const BouncingScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 9 / 11.5,
+                          ),
+                          itemCount: controller.allProducts.length,
+                          itemBuilder: (_, index) {
+                            if (((index + 1) ==
+                                    controller.allProducts.length) &&
+                                !controller.isLastPage) {
+                              controller.loadMoreProducts();
+                            }
+
+                            return ItemTile(
+                              item: controller.allProducts[index],
+                              cartAnimationMethod: itemSelectedCartAnimations,
+                              //item: appData1.items
+                            );
+                          },
+                        ),
+                      )
+                    : GridView.count(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        physics: const BouncingScrollPhysics(),
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         childAspectRatio: 9 / 11.5,
-                      ),
-                      itemCount: appData1.items.length,
-                      itemBuilder: (_, index) {
-                        return ItemTile(
-                          item: appData1.items[index],
-                          cartAnimationMethod: itemSelectedCartAnimations,
-                          //item: appData1.items
-                        );
-                      },
-                    )
-                  : GridView.count(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 9 / 11.5,
-                      children: List.generate(
-                        10,
-                        (index) => CustomShimmer(
-                          height: double.infinity,
-                          width: double.infinity,
-                          borderRadius: BorderRadius.circular(20),
+                        children: List.generate(
+                          10,
+                          (index) => CustomShimmer(
+                            height: double.infinity,
+                            width: double.infinity,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
-                    ),
-            ),
+              );
+            })
           ],
         ),
       ),

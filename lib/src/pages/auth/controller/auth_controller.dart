@@ -75,7 +75,7 @@ class AuthController extends GetxController {
         saveTokenAndProceedToBase();
       },
       error: (message) {
-        showToast(
+        UtilsServices.showToast(
           menssage: message,
           isError: true,
         );
@@ -98,7 +98,7 @@ class AuthController extends GetxController {
       this.user = user;
       saveTokenAndProceedToBase();
     }, error: (menssage) {
-      showToast(
+      UtilsServices.showToast(
         menssage: menssage,
         isError: true,
       );

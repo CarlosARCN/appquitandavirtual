@@ -2,17 +2,17 @@
 
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:appquitanda/src/models/cart_item_model.dart';
+import 'package:appquitanda/src/pages/cart/controller/cart_controller.dart';
 import 'package:appquitanda/src/pages/common_widgets/quantity_widget.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartTile extends StatefulWidget {
   final CartItemModel cartitem;
-  final Function(CartItemModel) remove;
   const CartTile({
     super.key,
     required this.cartitem,
-    required this.remove,
   });
 
   @override
@@ -21,7 +21,7 @@ class CartTile extends StatefulWidget {
 
 class _CartTileState extends State<CartTile> {
   final UtilServicess UtilsServices = UtilServicess();
-
+  final controller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,7 +31,7 @@ class _CartTileState extends State<CartTile> {
       ),
       child: ListTile(
         //imagem
-        leading: Image.asset(
+        leading: Image.network(
           widget.cartitem.item.imgUrl,
           height: 60,
           width: 60,
@@ -45,7 +45,7 @@ class _CartTileState extends State<CartTile> {
         ),
         //total
         subtitle: Text(
-          UtilsServices.priceToCurrency(widget.cartitem.Totalprice()),
+          UtilsServices.priceToCurrency(widget.cartitem.totalPrice()),
           style: TextStyle(
             color: CustomColors.customSwatchColor,
             fontWeight: FontWeight.bold,
@@ -54,14 +54,8 @@ class _CartTileState extends State<CartTile> {
         //quantidade
         trailing: Quantitywidget(
           result: ((quantity) {
-            setState(() {
-              widget.cartitem.quantity = quantity;
-
-              if (quantity == 0) {
-                //remover
-                widget.remove(widget.cartitem);
-              }
-            });
+            controller.changeItemQuantity(
+                item: widget.cartitem, quantity: quantity);
           }),
           suffixtext2: widget.cartitem.item.unit,
           value1: widget.cartitem.quantity,

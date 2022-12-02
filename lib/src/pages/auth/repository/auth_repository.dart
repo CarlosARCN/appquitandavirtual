@@ -48,7 +48,6 @@ class AuthRepository {
     final result = await _httpManager.restRequest(
       url: Endpoints.signup,
       method: HttpMethods.post,
-      //TODO enviar dados
       body: user.toJson(),
     );
 
