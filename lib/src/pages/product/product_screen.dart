@@ -1,25 +1,31 @@
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:appquitanda/src/models/Iten_model.dart';
+import 'package:appquitanda/src/pages/base/controller/navigation_controller.dart';
+import 'package:appquitanda/src/pages/cart/controller/cart_controller.dart';
 import 'package:appquitanda/src/pages/common_widgets/quantity_widget.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({
+  ProductScreen({
     super.key,
-    required this.item,
+    // required this.item,
   });
 
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  final utilServices utilservices = utilServices();
+  final UtilServicess utilservices = UtilServicess();
 
   int cartitemquantity = 1;
+
+  final cartController = Get.find<CartController>();
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
               child: Hero(
                 tag: widget.item.imgUrl,
-                child: Image.asset(widget.item.imgUrl),
+                child: Image.network(widget.item.imgUrl),
               ),
             ),
             Expanded(
@@ -111,7 +117,17 @@ class _ProductScreenState extends State<ProductScreen> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.back();
+
+                          cartController.addItemToCart(
+                            item: widget.item,
+                            quantity: cartitemquantity,
+                          );
+
+                          navigationController
+                              .navigatePageView(NavigationTabs.cart);
+                        },
                         label: const Text(
                           'Comprar',
                           style: TextStyle(

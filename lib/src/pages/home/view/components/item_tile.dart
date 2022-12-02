@@ -2,9 +2,11 @@
 
 import 'package:appquitanda/src/config/custom_colors.dart';
 import 'package:appquitanda/src/models/Iten_model.dart';
-import 'package:appquitanda/src/pages/product/product_screen.dart';
+import 'package:appquitanda/src/pages/cart/controller/cart_controller.dart';
+import 'package:appquitanda/src/pages_Routes/app_Pages.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemTile extends StatefulWidget {
   final ItemModel item;
@@ -23,7 +25,8 @@ class ItemTile extends StatefulWidget {
 class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
 
-  utilServices utilservices = utilServices();
+  final UtilServicess utilservices = UtilServicess();
+  final cartController = Get.find<CartController>();
 
   IconData tittleIcon = Icons.add_shopping_cart_outlined;
 
@@ -41,15 +44,7 @@ class _ItemTileState extends State<ItemTile> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (c) {
-                  return ProductScreen(
-                    item: widget.item,
-                  );
-                },
-              ),
-            );
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
           },
           child: Card(
             elevation: 1,
@@ -67,7 +62,7 @@ class _ItemTileState extends State<ItemTile> {
                   Expanded(
                     child: Hero(
                       tag: widget.item.imgUrl,
-                      child: Image.asset(
+                      child: Image.network(
                         widget.item.imgUrl,
                         key: imageGk,
                       ),
@@ -119,6 +114,8 @@ class _ItemTileState extends State<ItemTile> {
                 child: InkWell(
                   onTap: () {
                     swithIcon();
+
+                    cartController.addItemToCart(item: widget.item);
 
                     widget.cartAnimationMethod(imageGk);
                   },

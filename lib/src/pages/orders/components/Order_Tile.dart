@@ -14,7 +14,7 @@ class OrderTile extends StatelessWidget {
     super.key,
     required this.order,
   });
-  final utilServices Utilsservices = utilServices();
+  final UtilServicess Utilsservices = UtilServicess();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class OrderTile extends StatelessWidget {
             children: [
               Text('pedido: ${order.id}'),
               Text(
-                Utilsservices.formaterDateTime(order.createdDatetime),
+                Utilsservices.formaterDateTime(order.createdDatetime!),
                 style: const TextStyle(
                   fontSize: 12,
                   color: Colors.black,
@@ -136,7 +136,7 @@ class _OrderItemWidget extends StatelessWidget {
     required this.orderItem,
   }) : super(key: key);
 
-  final utilServices utilsServices;
+  final UtilServicess utilsServices;
   final CartItemModel orderItem;
 
   @override
@@ -152,7 +152,7 @@ class _OrderItemWidget extends StatelessWidget {
             ),
           ),
           Expanded(child: Text(orderItem.item.itemName)),
-          Text(utilsServices.priceToCurrency(orderItem.Totalprice()))
+          Text(utilsServices.priceToCurrency(orderItem.totalPrice()))
         ],
       ),
     );

@@ -2,13 +2,13 @@
 
 import 'package:appquitanda/src/models/order_model.dart';
 import 'package:appquitanda/src/services/utils_services.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class PaymentDialog extends StatelessWidget {
   final OrderModel order;
   PaymentDialog({super.key, required this.order});
-  final utilServices Utilservices = utilServices();
+  final UtilServicess Utilservices = UtilServicess();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -33,10 +33,10 @@ class PaymentDialog extends StatelessWidget {
                   ),
 
                   //QR code
-                  QrImage(
-                    data: "skdjghadfghiash",
-                    version: QrVersions.auto,
-                    size: 200.0,
+                  Image.memory(
+                    Utilservices.decodeQrCodeImage(order.qrCodeImage),
+                    height: 200,
+                    width: 200,
                   ),
                   //vencimento
                   Text(
@@ -61,7 +61,10 @@ class PaymentDialog extends StatelessWidget {
                           ),
                           side: BorderSide(
                               width: 2, color: Colors.green.shade400)),
-                      onPressed: () {},
+                      onPressed: () {
+                        FlutterClipboard.copy(order.copyAndPaste);
+                        Utilservices.showToast(menssage: 'codigo pix copiado');
+                      },
                       icon: const Icon(
                         Icons.copy,
                         size: 15,
