@@ -1,7 +1,7 @@
 import 'package:appquitanda/src/pages/base/controller/navigation_controller.dart';
 import 'package:appquitanda/src/pages/cart/view/cart_tab.dart';
 import 'package:appquitanda/src/pages/home/view/Home_tab.dart';
-import 'package:appquitanda/src/pages/orders/orders_tab.dart';
+import 'package:appquitanda/src/pages/orders/view/orders_tab.dart';
 import 'package:appquitanda/src/pages/profile/Profile_Tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
