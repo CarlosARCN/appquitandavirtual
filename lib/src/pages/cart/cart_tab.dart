@@ -4,7 +4,7 @@ import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/pages/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
-import 'package:greengrocer/src/config/app_data.dart' as appData;
+import 'package:greengrocer/src/config/app_data.dart' as appdata;
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _CartTabState extends State<CartTab> {
 
   void removeItemFromCart(CartItemModel cartITem) {
     setState(() {
-      appData.cartItems.remove(cartITem);
+      appdata.cartItems.remove(cartITem);
 
       utilsServices.showToast(
           message: '${cartITem.item.itemName} removido(a) do carrinho');
@@ -28,7 +28,7 @@ class _CartTabState extends State<CartTab> {
   double cartTotalPrice() {
     double total = 0;
 
-    for (var item in appData.cartItems) {
+    for (var item in appdata.cartItems) {
       total += item.totalPrice();
     }
 
@@ -46,10 +46,10 @@ class _CartTabState extends State<CartTab> {
           // Lista de itens do carrinho
           Expanded(
             child: ListView.builder(
-              itemCount: appData.cartItems.length,
+              itemCount: appdata.cartItems.length,
               itemBuilder: (_, index) {
                 return CartTile(
-                  cartItem: appData.cartItems[index],
+                  cartItem: appdata.cartItems[index],
                   remove: removeItemFromCart,
                 );
               },
@@ -101,7 +101,7 @@ class _CartTabState extends State<CartTab> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: CustomColors.customSwatchColor,
+                      backgroundColor: CustomColors.customSwatchColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
@@ -114,7 +114,7 @@ class _CartTabState extends State<CartTab> {
                           context: context,
                           builder: (_) {
                             return PaymentDialog(
-                              order: appData.orders.first,
+                              order: appdata.orders.first,
                             );
                           },
                         );
