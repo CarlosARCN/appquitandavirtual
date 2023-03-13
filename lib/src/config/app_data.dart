@@ -74,21 +74,6 @@ List<String> categories = [
   'Careais',
 ];
 
-List<CartItemModel> cartItems = [
-  CartItemModel(
-    item: apple,
-    quantity: 4,
-  ),
-  CartItemModel(
-    item: mango,
-    quantity: 2,
-  ),
-  CartItemModel(
-    item: guava,
-    quantity: 1,
-  ),
-];
-
 UserModel user = UserModel(
   phone: '99 9 9999-9999',
   cpf: '999.999.999-99',

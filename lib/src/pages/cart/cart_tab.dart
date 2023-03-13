@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/models/cart_item_model.dart';
+import 'package:greengrocer/src/pages/cart/blocs/cart_bloc.dart';
+import 'package:greengrocer/src/pages/cart/blocs/cart_event.dart';
+import 'package:greengrocer/src/pages/cart/blocs/cart_state.dart';
 import 'package:greengrocer/src/pages/cart/components/cart_tile.dart';
 import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
-import 'package:greengrocer/src/config/app_data.dart' as appData;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greengrocer/src/config/app_data.dart' as appdata;
 
 class CartTab extends StatefulWidget {
   const CartTab({Key? key}) : super(key: key);
@@ -14,26 +17,35 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> {
+  late final CartItemBloc bloc;
+
   final UtilsServices utilsServices = UtilsServices();
 
-  void removeItemFromCart(CartItemModel cartITem) {
-    setState(() {
-      appData.cartItems.remove(cartITem);
-
-      utilsServices.showToast(
-          message: '${cartITem.item.itemName} removido(a) do carrinho');
-    });
+  @override
+  void initState() {
+    super.initState();
+    bloc = CartItemBloc();
+    bloc.add(
+      LoadCartItemEvent(),
+    );
   }
 
-  double cartTotalPrice() {
-    double total = 0;
-
-    for (var item in appData.cartItems) {
-      total += item.totalPrice();
-    }
-
-    return total;
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
+  //TODO: funcition total price
+
+  // double cartTotalPrice() {
+  //   double total = 0;
+
+  //   for (var item in cartItemsList) {
+  //     total += item.totalPrice();
+  //   }
+
+  //   return total;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +55,36 @@ class _CartTabState extends State<CartTab> {
       ),
       body: Column(
         children: [
-          // Lista de itens do carrinho
           Expanded(
-            child: ListView.builder(
-              itemCount: appData.cartItems.length,
-              itemBuilder: (_, index) {
-                return CartTile(
-                  cartItem: appData.cartItems[index],
-                  remove: removeItemFromCart,
-                );
+            child: BlocBuilder<CartItemBloc, CartItemState>(
+              bloc: bloc,
+              builder: (context, State) {
+                if (State is CartItemInitialState) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                } else if (State is CartItemSuccessState) {
+                  final cartItemsList = State.cartItemsModel;
+                  return ListView.builder(
+                    itemCount: cartItemsList.length,
+                    itemBuilder: (_, index) {
+                      return CartTile(
+                        cartItem: cartItemsList[index],
+                        remove: (cartItemModel) {
+                          bloc.add(
+                            RemoveCartItemEvent(
+                              cartItemModel: cartItemsList[index],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                }
+                return Container();
               },
             ),
           ),
-
-          // Total e botão de concluir o pedido
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -87,7 +115,7 @@ class _CartTabState extends State<CartTab> {
                         ),
                       ),
                       Text(
-                        utilsServices.priceToCurrency(cartTotalPrice()),
+                        'a definir a function',
                         style: TextStyle(
                           fontSize: 23,
                           color: CustomColors.customSwatchColor,
@@ -101,7 +129,7 @@ class _CartTabState extends State<CartTab> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: CustomColors.customSwatchColor,
+                      backgroundColor: CustomColors.customSwatchColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
@@ -114,7 +142,7 @@ class _CartTabState extends State<CartTab> {
                           context: context,
                           builder: (_) {
                             return PaymentDialog(
-                              order: appData.orders.first,
+                              order: appdata.orders.first,
                             );
                           },
                         );
